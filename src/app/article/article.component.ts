@@ -34,9 +34,17 @@ export class ArticleComponent implements OnInit {
         this.article = article;
         this.titleService.setTitle(`${this.article.title} - ${this.sharedService.blogTitle}`);
         this.meta.addTags([
-          { name: 'description', content: this.article.description}
+          { name: 'description', content: this.article.description},
+          { name: 'og:title', content: `${this.article.title} - ${this.sharedService.blogTitle}`},
+          { name: 'og:type', content: 'website'},
+          { name: 'og:url', content: this.sharedService.baseUrl + this.article.key},
+          { name: 'og:image', content:  this.article.imageUrl},
+          { name: 'og:description', content:  this.article.description},
+          { name: 'og:site_name', content:  this.sharedService.blogTitle}
+
+
         ]);
-        console.log('get single article : ' , this.article)
+        console.log('get single article : ' , this.article);
       });
     });
   }
