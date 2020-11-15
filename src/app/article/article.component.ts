@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from '../article';
 import { ArticleService } from '../services/article.service';
@@ -19,7 +19,8 @@ export class ArticleComponent implements OnInit {
     private articleServices: ArticleService,
     private router: Router,
     private titleService: Title,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private meta: Meta
     ) { }
 
   ngOnInit() {
@@ -31,7 +32,10 @@ export class ArticleComponent implements OnInit {
           return;
         }
         this.article = article;
-        this.titleService.setTitle(`${this.article.title} - ${this.sharedService.blogTitle}`)
+        this.titleService.setTitle(`${this.article.title} - ${this.sharedService.blogTitle}`);
+        this.meta.addTags([
+          { name: 'description', content: this.article.description}
+        ]);
         console.log('get single article : ' , this.article)
       });
     });
